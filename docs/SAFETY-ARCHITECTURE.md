@@ -6,13 +6,25 @@
 
 The Student Hub must be a separate application and data environment from the general CrowRules Podcasting platform.
 
-- Create a dedicated Supabase project for future Student Hub data.
-- Do not add student records to the existing CrowRules Podcasting Supabase project.
+- Use the existing CrowRules Podcasting Supabase project (`cevylpnoexugwgygvtgu`) and keep Student Hub relational data in the dedicated `student_hub` PostgreSQL schema.
+- Do not create Student Hub tables in `public` or reuse existing Podcasting tables for student records.
+- The `student_hub` schema has been created but contains no tables. It is not exposed through the Data API, and `anon`, `authenticated`, and `service_role` currently have no schema `USAGE` privilege.
+- Do not add broad schema/table grants or expose `student_hub` in Supabase API settings until the complete access model and RLS policies have been reviewed.
+- This schema boundary is logical isolation only. The project still shares Supabase Auth (`auth.users` and provider configuration), Storage service, compute, backups, and project-level settings with CrowRules Podcasting. Do not describe it as a separate tenant or equivalent to a separate project.
+- If school requirements demand isolated authentication, independent provider settings, separate backups, or a stronger tenant boundary, move the Student Hub to a separate Supabase project before onboarding students.
 - Do not expose service-role keys or other secrets in browser code, GitHub Pages, or this repository.
 - Main-platform integration must be limited to approved educational content and explicitly designed services.
 - Do not share student identity, school records, submissions, recordings, grades, or private project metadata with the general platform.
 
-## 2. Roles and least privilege
+## 2. Shared Supabase services and identity
+
+- Student Hub sign-in would use the same Supabase Auth project and `auth.users` pool unless the architecture is changed to a separate project.
+- Do not automatically grant student users access to the general CrowRules Podcasting application. Authorization must be based on explicit Student Hub enrollment and school membership records, not merely a valid Supabase session.
+- Do not use user-editable `user_metadata` for roles or authorization. Use trusted server-managed membership records and carefully controlled authorization claims where needed.
+- Review existing OAuth providers before any student login is enabled. General creator sign-in providers must not automatically become student sign-in methods.
+- Any future media storage must use a dedicated private Student Hub bucket with restrictive Storage policies, separate from general Podcasting media.
+
+## 3. Roles and least privilege
 
 Planned roles (not yet implemented):
 
@@ -26,7 +38,7 @@ Planned roles (not yet implemented):
 
 Every request must be authorized by trusted server-side logic and database policies. Hiding a page, button, route, or menu item is not authorization.
 
-## 3. School isolation
+## 4. School isolation
 
 - Every school-owned record must be associated with a school identifier.
 - Class and project access must be checked against the authenticated user's active school membership.
@@ -35,7 +47,7 @@ Every request must be authorized by trusted server-side logic and database polic
 - Cross-school access tests are release blockers.
 - Administrative access must be narrow, logged, reviewed, and revocable.
 
-## 4. Student content and publishing
+## 5. Student content and publishing
 
 Default project visibility: **private**.
 
@@ -49,7 +61,7 @@ Planned workflow:
 
 Public publishing must remain disabled until the workflow, consent evidence, permissions, audit trail, and takedown process are implemented and tested. Students must not be able to self-approve public publication.
 
-## 5. Communication and interaction
+## 6. Communication and interaction
 
 For the initial release:
 - No public student directory.
@@ -61,7 +73,7 @@ For the initial release:
 
 Any future collaboration tools require educator oversight, abuse reporting, moderation, and documented response procedures.
 
-## 6. Data minimization
+## 7. Data minimization
 
 Collect only the minimum information necessary for an approved educational purpose. Define:
 - Data owner and school responsibilities.
@@ -74,7 +86,7 @@ Collect only the minimum information necessary for an approved educational purpo
 
 Do not sell student information, use it for targeted advertising or behavioral profiling, or use student recordings/submissions to train AI models.
 
-## 7. Development and testing
+## 8. Development and testing
 
 Until approval:
 - Use fictional students, fictional schools, and synthetic content only.
@@ -83,7 +95,7 @@ Until approval:
 - Test authentication, role boundaries, school isolation, storage access, exports, deletion, and audit logs.
 - Review all third-party services before enabling them.
 
-## 8. Compliance review
+## 9. Compliance review
 
 Before a school pilot, obtain qualified review of the actual service model, school agreements, consent flows, privacy notice, data processing terms, retention rules, and incident response plan. Evaluate applicable requirements including FERPA, COPPA, Washington student privacy laws, and school/district policies.
 
