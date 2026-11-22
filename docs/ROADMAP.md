@@ -24,7 +24,9 @@ The project will advance through gated phases. A later phase must not begin with
 
 ## Phase 2 — Secure technical foundation
 
-- [ ] Create a dedicated Supabase project.
+- [x] Create the `student_hub` schema in the existing CrowRules Podcasting Supabase project (`cevylpnoexugwgygvtgu`).
+- [x] Keep the new schema unexposed and revoke schema access from `anon`, `authenticated`, and `service_role` pending security design.
+- [ ] Audit shared Auth/provider implications and decide whether the shared identity boundary is acceptable for the school pilot.
 - [ ] Define minimal data model and data classification.
 - [ ] Implement authentication with school-approved account provisioning.
 - [ ] Implement server-side authorization and restrictive RLS.
@@ -33,7 +35,7 @@ The project will advance through gated phases. A later phase must not begin with
 - [ ] Add account lifecycle, access revocation, export, and deletion workflows.
 - [ ] Conduct independent security review and negative-access testing.
 
-**Gate:** No real student enrollment before isolation and access-control tests pass.
+**Gate:** No real student enrollment before isolation and access-control tests pass. If a school requires separate Auth, storage, backups, or stronger tenant isolation, create a separate Supabase project before pilot.
 
 ## Phase 3 — Educator-led learning tools
 
