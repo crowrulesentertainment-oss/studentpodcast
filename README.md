@@ -14,7 +14,9 @@ This repository currently contains a public information-site scaffold and planni
 ## Safety-first architecture
 
 - Separate application and data environment from the main CrowRules Podcasting platform.
-- Separate Supabase project for any future student data. Do not reuse the production Podcasting project.
+- Use the existing CrowRules Podcasting Supabase project (`cevylpnoexugwgygvtgu`) with a dedicated `student_hub` PostgreSQL schema.
+- Keep Student Hub tables out of `public`; the `student_hub` schema is initially unexposed and has no privileges granted to `anon`, `authenticated`, or `service_role`.
+- This is logical application/data separation, not a separate Supabase security or billing boundary: Auth, Storage, compute, backups, and project-level settings remain shared.
 - No student-facing authentication or data collection until school agreements, privacy review, authorization, and security testing are complete.
 - Private-by-default student work; public publishing disabled unless a future approved workflow is implemented.
 - School-scoped access for teachers and administrators.
