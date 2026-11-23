@@ -49,3 +49,14 @@ h1,h2,h3{line-height:1.1;letter-spacing:-.045em}h1{font-size:clamp(48px,6vw,82px
 .page-nav a:hover{background:#e7c17d12}
 .interior-footer{padding-top:22px}
 @media(max-width:680px){.page-hero{padding:60px 24px 48px}.page-hero:after{width:120px;height:120px;right:4%;top:9%}.page-content{padding:35px 22px 65px}.content-grid{grid-template-columns:1fr}}
+
+/* Educator resource center */
+.toolkit-heading{font-size:clamp(22px,3vw,30px);letter-spacing:-.035em;margin:42px 0 18px}
+.toolkit-intro{font-size:13px;line-height:1.8;color:#c1bbc1;max-width:780px;margin:-7px 0 18px}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin:18px 0 30px}
+.rubric-table{width:100%;border-collapse:collapse;min-width:640px;background:#17191e}
+.rubric-table th,.rubric-table td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.65}
+.rubric-table th{color:#e7c17d;font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:#202126}
+.rubric-table td{color:#c8c2c8}
+.rubric-table tbody tr:last-child th{color:#f1e6d1}
+@media print{body{background:#fff!important;color:#111!important}.site-header,.site-footer,.page-nav,.page-hero:after{display:none!important}.page-hero{padding:20px 0;background:#fff!important;color:#111!important;border:0}.page-hero h1,.page-hero .lead,.page-hero .intro,.content-card h2,.content-card p,.toolkit-heading,.toolkit-intro{color:#111!important}.page-content{padding:12px 0}.content-card,.page-callout,.rubric-table{background:#fff!important;border:1px solid #aaa!important;break-inside:avoid}.content-card p,.page-callout p{color:#222!important}.rubric-table th,.rubric-table td{color:#111!important;background:#fff!important}.eyebrow{color:#555!important}}
